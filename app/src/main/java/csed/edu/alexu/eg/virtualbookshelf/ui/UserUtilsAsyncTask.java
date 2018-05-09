@@ -22,12 +22,15 @@ public class UserUtilsAsyncTask extends AsyncTask<String , Void, Volumes>  {
     private BookListAdapter adapter;
     private Context mainActivity;
     private String className;
+    private String shelfId;
 
-    protected UserUtilsAsyncTask(BookListAdapter adapter, ListView booksListView, Context mainActivity, String className){
+    public UserUtilsAsyncTask(BookListAdapter adapter, ListView booksListView,
+                                 Context mainActivity, String className,String shelfId){
         this.adapter = adapter;
         this.booksListView = booksListView;
         this.mainActivity = mainActivity;
         this.className = className;
+        this.shelfId = shelfId;
     }
 
 
@@ -57,7 +60,7 @@ public class UserUtilsAsyncTask extends AsyncTask<String , Void, Volumes>  {
             Log.d("MainActivity", "volumes is empty");
             return;
         }
-        adapter = new BookListAdapter(mainActivity, R.layout.books_list_item, volumes);
+        adapter = new BookListAdapter(mainActivity, R.layout.books_list_item, volumes, shelfId);
         booksListView.setAdapter(adapter);
 
         booksListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

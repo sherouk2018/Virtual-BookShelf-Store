@@ -93,7 +93,7 @@ public class MainActivity extends AppCompatActivity
 
                 new UserUtilsAsyncTask(adapter, booksListView,
                         MainActivity.this,
-                        "FilterData").execute(getFilter(String.valueOf(filterOption),
+                        "FilterData", Constants.NO_SHELF).execute(getFilter(String.valueOf(filterOption),
                         filter_String.getText().toString()));
 
             }
@@ -266,17 +266,17 @@ public class MainActivity extends AppCompatActivity
     }else if (id == R.id.favourite_list) {
             new UserUtilsAsyncTask(adapter, booksListView,
                     MainActivity.this,
-                    "ShowVolumesInBookshelf").execute(Constants.FAVOURITE);
+                    "ShowVolumesInBookshelf", Constants.FAVOURITE).execute(Constants.FAVOURITE);
 
     } else if (id == R.id.to_be_read_list) {
             new UserUtilsAsyncTask(adapter, booksListView,
                     MainActivity.this,
-                    "ShowVolumesInBookshelf").execute(Constants.WISH_LIST);
+                    "ShowVolumesInBookshelf", Constants.WISH_LIST).execute(Constants.WISH_LIST);
 
     } else if (id == R.id.read_list) {
             new UserUtilsAsyncTask(adapter, booksListView,
                     MainActivity.this,
-                    "ShowVolumesInBookshelf").execute(Constants.READ);
+                    "ShowVolumesInBookshelf", Constants.READ).execute(Constants.READ);
 
     } else if (id == R.id.books_view) {
             //TODO View the whole Library for the user
