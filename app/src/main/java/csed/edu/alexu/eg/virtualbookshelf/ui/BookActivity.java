@@ -31,37 +31,20 @@ import java.util.concurrent.ExecutionException;
 
 import csed.edu.alexu.eg.virtualbookshelf.R;
 import csed.edu.alexu.eg.virtualbookshelf.utility.BookListAdapter;
+import csed.edu.alexu.eg.virtualbookshelf.utility.Constants;
 import csed.edu.alexu.eg.virtualbookshelf.utility.EditFactory;
 import csed.edu.alexu.eg.virtualbookshelf.utility.FilterData;
 import csed.edu.alexu.eg.virtualbookshelf.utility.UserUtils;
 
 public class BookActivity extends AppCompatActivity {
     private static final String SEPARATOR = "\n";
-    HashMap<String, String> shelfID;
-    public BookActivity(){
-        /*
-    BookShelf ShelfID: 1 Name: Purchased
-    BookShelf ShelfID: 5 Name: Reviewed
-    BookShelf ShelfID: 6 Name: Recently viewed
-    BookShelf ShelfID: 9 Name: Browsing history
-    BookShelf ShelfID: 0 Name: Favorites
-    BookShelf ShelfID: 3 Name: Reading now
-    BookShelf ShelfID: 2 Name: To read*/
-        shelfID = new HashMap<>();
-        shelfID.put("Favorites", "0");
-        shelfID.put("Reading now", "3");
-        shelfID.put("To read", "2");
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book);
-
         Log.d(this.getClass().getName(), "open individual book number ");
-
         String volumeId = (String) this.getIntent().getExtras().get("book_id");
-
         new BookActivity.LoadSingleBookTask().execute(volumeId);
     }
 
@@ -84,8 +67,6 @@ public class BookActivity extends AppCompatActivity {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
-
             return volume;
         }
 
@@ -155,26 +136,37 @@ public class BookActivity extends AppCompatActivity {
                 });
                 addToFavBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
-                    public void onClick(View v) {addToShelf(volume.getId() , "Favorites");}
+                    public void onClick(View v) {
+                        addToShelf(volume.getId() , "Favorites");
+                        Toast.makeText(BookActivity.this, "Added to Favourite List", Toast.LENGTH_SHORT).show();
+                    }
                 });
                 addToWishlistBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
-                    public void onClick(View v) {addToShelf(volume.getId(), "Reading now");}
-                });
+                    public void onClick(View v) {
+                        addToShelf(volume.getId(), "WishList");
+                        Toast.makeText(BookActivity.this, "Added to Wish List", Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                );
                 addToReadBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
-                    public void onClick(View v) {addToShelf(volume.getId(), "To read");}
+                    public void onClick(View v) {
+                        addToShelf(volume.getId(), "Read");
+                        Toast.makeText(BookActivity.this, "Added to Read List", Toast.LENGTH_SHORT).show();
+                    }
                 });
 
             }
         }
 
 
-        public void addToShelf(String ID, String shelfName){
-         /*   Log.d("BOOK-FAV", ID);
-            UserUtils user = EditFactory.getInstance().getEditFun("AddVolumeToShelf");
-            Log.d("Soso", "shelfId: " + ID);
-            user.execute(new String[]{shelfID.get(shelfName), ID});*/
+        public void addToShelf(String id, String shelfName){
+            new UserUtilsAsyncTask(null, null,
+                    BookActivity.this,
+                    "AddVolumeToShelf", Constants.NO_SHELF).execute(shelfName, id);
+
         }
     }
 

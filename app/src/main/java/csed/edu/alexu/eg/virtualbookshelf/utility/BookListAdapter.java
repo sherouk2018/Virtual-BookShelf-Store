@@ -22,18 +22,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 import csed.edu.alexu.eg.virtualbookshelf.R;
+import csed.edu.alexu.eg.virtualbookshelf.ui.MainActivity;
+import csed.edu.alexu.eg.virtualbookshelf.ui.UserUtilsAsyncTask;
 
 public class BookListAdapter extends ArrayAdapter {
     private static final String SEPARATOR = " , ";
 
-    List<Volume> volumes;
-    Context context;
+    private List<Volume> volumes;
+    private Context context;
+    private String shelfId;
 
-    public BookListAdapter(Context context, int resource, Volumes volumes) {
+    public BookListAdapter(Context context, int resource, Volumes volumes, String shelfId, ) {
         super(context, resource);
         this.context = context;
         this.volumes = volumes.getItems();
-
+        this.shelfId = shelfId;
     }
 
     @Override
@@ -47,23 +50,18 @@ public class BookListAdapter extends ArrayAdapter {
         return volumes.get(position);
     }
 
-    @Override
-    public long getItemId(int position) {
-        return 0;
-    }
-
     public List<Volume> getVolumes() {
         return volumes;
     }
 
     @NonNull
     @Override
-    public View getView(final int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+    public View getView(final int position, @Nullable final View convertView, @NonNull ViewGroup parent) {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View listView;
 
         if (convertView == null) {
-            Volume volume = volumes.get(position);
+            final Volume volume = volumes.get(position);
             listView = inflater.inflate(R.layout.books_list_item, null);
 
             // image
@@ -106,6 +104,28 @@ public class BookListAdapter extends ArrayAdapter {
                     //utils.execute(shelfID , addedVolume.getId());
                 }
             });*/
+
+
+            ImageButton removeBtn = listView.findViewById(R.id.remove_from_list);
+            if(shelfId == Constants.NO_SHELF)
+                removeBtn.setVisibility(View.INVISIBLE);
+            else {
+
+                removeBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Log.d("BookListAdapter: ", volume.getId());
+                        new UserUtilsAsyncTask(null, null,
+                                context,
+                                "RemoveVolumeFromShelf", Constants.NO_SHELF)
+                                .execute(shelfId, volume.getId());
+                        //volumes.remove(volume);
+                        BookListAdapter.this.remove(position);
+                        BookListAdapter.this.notifyDataSetChanged();
+
+                    }
+                });
+            }
         } else {
             listView = convertView;
         }

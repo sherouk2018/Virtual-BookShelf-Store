@@ -119,7 +119,7 @@ public class MainActivity extends AppCompatActivity
                 }
                 new UserUtilsAsyncTask(adapter, booksListView,
                         MainActivity.this,
-                        "FilterData").execute(getFilter(String.valueOf(filterOption),
+                        "FilterData", Constants.NO_SHELF).execute(getFilter(String.valueOf(filterOption),
                         filter_String.getText().toString()));
             }
 
