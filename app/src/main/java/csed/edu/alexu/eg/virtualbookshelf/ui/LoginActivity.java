@@ -1,3 +1,4 @@
+/*
 package csed.edu.alexu.eg.virtualbookshelf.ui;
 
 import android.support.v7.app.AppCompatActivity;
@@ -76,8 +77,10 @@ public class LoginActivity extends AppCompatActivity {
         EditFactory.init(LoginActivity.this, account.getAccount());
         factory = EditFactory.getInstance();
         //TODO move to home activity.
-       /* Intent myIntent = new Intent(this, HomeActivity.class);
-        startActivity(myIntent);*/
+       */
+/* Intent myIntent = new Intent(this, HomeActivity.class);
+        startActivity(myIntent);*//*
+
         Intent myIntent = new Intent(this, MainActivity.class);
         startActivity(myIntent);
 
@@ -121,3 +124,4 @@ public class LoginActivity extends AppCompatActivity {
     }
     
 }
+*/

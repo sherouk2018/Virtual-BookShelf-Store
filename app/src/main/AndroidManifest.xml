@@ -23,7 +23,6 @@
             android:name=".ui.MainActivity"
             android:label="@string/title_activity_user"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".ui.LoginActivity" />
         <activity android:name=".ui.EditShelfActivity"></activity>
     </application>
 
