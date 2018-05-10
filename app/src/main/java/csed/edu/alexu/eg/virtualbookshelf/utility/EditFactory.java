@@ -13,7 +13,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Collections;
 
-public class EditFactory  {
+public class EditFactory {
 
     private static final String TAG = EditFactory.class.getSimpleName();
     private static Books books;
@@ -22,9 +22,9 @@ public class EditFactory  {
     private EditFactory() {
     }
 
-    public static void init (Context myContext, Account myAccount){
+    public static void init(Context myContext, Account myAccount) {
         Log.d(TAG, "Begin initializing book object");
-        if(factory == null){
+        if (factory == null) {
             Log.d(TAG, "Begin creating credentials");
             GoogleAccountCredential credential = createGoogleAccountCredentials(myContext, myAccount);
             Log.d(TAG, "Finish creating credentials");
@@ -50,18 +50,19 @@ public class EditFactory  {
                 Collections.singleton("https://www.googleapis.com/auth/books"));
     }
 
-    public static EditFactory getInstance(){
+    public static EditFactory getInstance() {
         Log.d(TAG, "Returning EditFactory instance");
+        if (factory == null) return new EditFactory();
         return factory;
     }
 
     public UserUtils getEditFun(String className) {
-        if (books == null) throw new RuntimeException ("Books have no entity");
+        //if (books == null) throw new RuntimeException("Books have no entity");
         try {
             Log.d(TAG, "Creating an object for class: " + className);
-            Constructor c = Class.forName("csed.edu.alexu.eg.virtualbookshelf.utility."+ className)
+            Constructor c = Class.forName("csed.edu.alexu.eg.virtualbookshelf.utility." + className)
                     .getConstructor(Books.class);
-            UserUtils obj = (UserUtils) c.newInstance(books);
+            UserUtils obj = (UserUtils) c.newInstance(getBooks());
             Log.d(TAG, "Finish creating object: " + obj.getClass().getSimpleName());
             return obj;
         } catch (ClassNotFoundException | NoSuchMethodException
@@ -74,11 +75,11 @@ public class EditFactory  {
 
     public Books getBooks() {
         Log.d(TAG, "Returning books object");
-        if (books == null){
-            Books books = new Books.Builder(new com.google.api.client.http.javanet.NetHttpTransport(), JacksonFactory.getDefaultInstance(), null)
-                                   .setApplicationName("VirtualBookShelf")
-                                   .setGoogleClientRequestInitializer(new BooksRequestInitializer(Constants.KEYAPI))
-                                   .build();
+        if (books == null) {
+            return new Books.Builder(new com.google.api.client.http.javanet.NetHttpTransport(), JacksonFactory.getDefaultInstance(), null)
+                    .setApplicationName("VirtualBookShelf")
+                    .setGoogleClientRequestInitializer(new BooksRequestInitializer(Constants.KEYAPI))
+                    .build();
 //throw new RuntimeException("Books is not set yet");
         }
         return books;

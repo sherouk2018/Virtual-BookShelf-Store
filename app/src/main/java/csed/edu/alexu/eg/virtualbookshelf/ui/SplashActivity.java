@@ -7,7 +7,6 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import csed.edu.alexu.eg.virtualbookshelf.R;
-import csed.edu.alexu.eg.virtualbookshelf.ui.LoginActivity;
 
 public class SplashActivity extends AppCompatActivity {
 
@@ -24,7 +23,7 @@ public class SplashActivity extends AppCompatActivity {
             public void run() {
                 try {
                     sleep(10);
-                    Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                     startActivity(intent);
                     finish();
                 } catch (InterruptedException e) {

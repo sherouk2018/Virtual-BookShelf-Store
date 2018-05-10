@@ -8,6 +8,7 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 
+
     <!-- Navigation bar items-->
     <string name="profile">Profile</string>
     <string name="books">Books</string>
@@ -28,6 +29,16 @@
     <string name="clear_Shelf">Clear</string>
     <string name="shelf_ID">0</string>
     <string name="vol_ID" >0</string>
+
+
+    <!-- Signing in -->
+    <string name="signing_in_failure_msg">Failed to sign in</string>
+    <string name="signing_in_success_msg">Signed in successfully</string>
+
+    <!-- Favourite/wish/read list  -->
+    <string name="favourite_list">Favourite Books</string>
+    <string name="wish_list">Wish List Books</string>
+    <string name="read_list">Read Books</string>
 
 
 
