@@ -8,24 +8,6 @@
     android:orientation="vertical"
     tools:context=".ui.BookActivity">
 
-    <!-- images   -->
-    <!--<RelativeLayout-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:gravity="center_vertical|center_horizontal|center">-->
-    <!--&lt;!&ndash;android:layout_weight="1"&ndash;&gt;-->
-    <!--<ImageView-->
-    <!--android:id="@+id/ind_book_image"-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:scaleType="centerInside" />-->
-    <!--&lt;!&ndash;android:layout_width="match_parent"&ndash;&gt;-->
-    <!--&lt;!&ndash;android:layout_height="300dp"&ndash;&gt;-->
-    <!--&lt;!&ndash;android:scaleType="fitStart"&ndash;&gt;-->
-    <!--&lt;!&ndash;android:adjustViewBounds="true"&ndash;&gt;-->
-    <!--&lt;!&ndash;android:foregroundGravity="center"&ndash;&gt;-->
-    <!--</RelativeLayout>-->
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -74,6 +56,35 @@
             android:paddingBottom="10dp"
             android:textSize="14sp" />
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:paddingTop="20dp"
+            android:text="@string/rate_this_book_lbl" />
+
+        <RatingBar
+            android:id="@+id/rating_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:numStars="5"
+            android:stepSize="1.0" />
+
+        <Button
+            android:id="@+id/submit_rate_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/rate_submit_lbl" />
+
+        <LinearLayout
+            android:id="@+id/user_add_to_lists_options"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"
+            android:orientation="vertical"
+            android:gravity="center">
+
+
         <Button
             android:id="@+id/add_to_fav_btn"
             android:layout_width="200dp"
@@ -101,25 +112,8 @@
             android:paddingRight="20dp"
             android:text="Add to read" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:paddingTop="20dp"
-            android:text="@string/rate_this_book_lbl" />
+        </LinearLayout>
 
-        <RatingBar
-            android:id="@+id/rating_bar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:numStars="5"
-            android:stepSize="1.0" />
-
-        <Button
-            android:id="@+id/submit_rate_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/rate_submit_lbl" />
     </LinearLayout>
 
 </ScrollView>

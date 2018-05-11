@@ -40,6 +40,9 @@
     <string name="wish_list">Wish List Books</string>
     <string name="read_list">Read Books</string>
 
+    <string name="clearing_list_alert_dialog">All books in list will be removed , Are you sure you want to clear the List ?</string>
+    <string name="clearing_list_toast">All books in list are successfully deleted</string>
+
 
 
 </resources>

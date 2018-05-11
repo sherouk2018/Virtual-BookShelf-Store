@@ -32,7 +32,7 @@ public class BookListAdapter extends ArrayAdapter {
     private Context context;
     private String shelfId;
 
-    public BookListAdapter(Context context, int resource, Volumes volumes, String shelfId, ) {
+    public BookListAdapter(Context context, int resource, Volumes volumes, String shelfId) {
         super(context, resource);
         this.context = context;
         this.volumes = volumes.getItems();
@@ -90,27 +90,10 @@ public class BookListAdapter extends ArrayAdapter {
                 authorsTxt.setText(authorsStr);
             }
 
-           /* // Add to library
-            Button addToLibrary = listView.findViewById(R.id.add_to_fav);
-            addToLibrary.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Log.d("BOOK-IN-LIST", "adding book to shelf");
-                    Volume addedVolume = getItem(position);
-                    EditFactory factory = EditFactory.getInstance();
-                    UserUtils utils = factory.getEditFun("AddVolumeToShelf");
-                    Log.d("BOOK-IN-LIST", "utils is : "+ utils.getClass().toString());
-                    // TODO : ADD TO LIBRARY
-                    //utils.execute(shelfID , addedVolume.getId());
-                }
-            });*/
-
-
             ImageButton removeBtn = listView.findViewById(R.id.remove_from_list);
             if(shelfId == Constants.NO_SHELF)
                 removeBtn.setVisibility(View.INVISIBLE);
             else {
-
                 removeBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -119,7 +102,7 @@ public class BookListAdapter extends ArrayAdapter {
                                 context,
                                 "RemoveVolumeFromShelf", Constants.NO_SHELF)
                                 .execute(shelfId, volume.getId());
-                        //volumes.remove(volume);
+                        volumes.remove(volume);
                         BookListAdapter.this.remove(position);
                         BookListAdapter.this.notifyDataSetChanged();
 

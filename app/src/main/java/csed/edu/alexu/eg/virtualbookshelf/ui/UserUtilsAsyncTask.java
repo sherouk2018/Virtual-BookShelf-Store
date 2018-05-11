@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.google.api.services.books.model.Volume;
 import com.google.api.services.books.model.Volumes;
@@ -43,25 +44,34 @@ public class UserUtilsAsyncTask extends AsyncTask<String , Void, Volumes>  {
         Log.d("MainActivity" , "filtering with subject in home activity");
         Volumes volumes = utils.doFunctionality(params);
 
-        if (volumes == null || volumes.isEmpty()) {
+        /*
+        if (volumes == null || volumes.isEmpty()||volumes.getItems()==null) {
             //TODO: Print Toast instead.
             Log.d("MainActivity", "volumes is empty");
             return  new Volumes();
-        }
+        }*/
         return volumes;
     }
 
     @Override
     protected void onPostExecute(Volumes volumes) {
         super.onPostExecute(volumes);
-        Log.d("MainActivity in post ", volumes.size()+"");
-        if (volumes == null || volumes.isEmpty()) {
-            //TODO: Print Toast instead.
-            Log.d("MainActivity", "volumes is empty");
+        if(adapter!=null) {
+            adapter.getVolumes().clear();
+            adapter.clear();
+            adapter.notifyDataSetChanged();
+        }
+
+        if (volumes == null || volumes.isEmpty()||volumes.getItems()==null) {
+            //TODO : if it was empty :/
+            //Toast.makeText(mainActivity, "List is Empty", Toast.LENGTH_LONG).show();
             return;
         }
+        Log.d("UserUtils-AsyncTask", volumes.size()+"  "+ shelfId );
         adapter = new BookListAdapter(mainActivity, R.layout.books_list_item, volumes, shelfId);
+        adapter.setNotifyOnChange(true);
         booksListView.setAdapter(adapter);
+        ((MainActivity)mainActivity).setAdapter(adapter);
 
         booksListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
