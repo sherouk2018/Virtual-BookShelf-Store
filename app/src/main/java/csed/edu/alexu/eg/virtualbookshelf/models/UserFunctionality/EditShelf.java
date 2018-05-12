@@ -26,12 +26,12 @@ public class EditShelf {
         }
     }
     public Books.Mylibrary.Bookshelves.Volumes ShowVolumesInBookshelf(Books  books, String ID) {
+        if (ID == null) throw new RuntimeException("Invalid parameters");
 
         Books.Mylibrary.Bookshelves.Volumes bookVolumes = null;
         try {
             Log.d(TAG, "Before showing bookshelf");
             bookVolumes = books.mylibrary().bookshelves().volumes();
-            //bookVolumes.execute();
             Log.d(TAG, "After showing bookshelf");
         } catch (Exception e) {
             Log.e(TAG, "Error in show bookShelf");

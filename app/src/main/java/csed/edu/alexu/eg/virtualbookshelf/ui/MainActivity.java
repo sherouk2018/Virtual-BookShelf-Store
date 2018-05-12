@@ -127,10 +127,15 @@ public class MainActivity extends AppCompatActivity
         // filter text field
         final EditText filter_String = findViewById(R.id.search_text);
         // filter fields menu
+//        adapter = new BookListAdapter(mainActivity, R.layout.books_list_item, new Volumes(), Constants.NO_SHELF, booksListView);
+////        adapter.setNotifyOnChange(true);
+//        booksListView.setAdapter(adapter);
+//        ((MainActivity)mainActivity).setAdapter(adapter);
         final Spinner spinner = findViewById(R.id.search_choices);
         ArrayAdapter spinner_adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, Constants.search_fields);
         spinner_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(spinner_adapter);
+
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                                               @Override
                                               public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -179,7 +184,7 @@ public class MainActivity extends AppCompatActivity
                         array[1] = "subject:" + params[1];
                         break;
                     case Constants.LOCATION:
-                        array[0] = "FilterDataByAttribute";
+                        array[0] = "FilterDataByLocation";
                         array[1] = params[1];
                         break;
                     case Constants.NO_FILTER:
@@ -224,14 +229,16 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
+
         if (id == R.id.action_settings) {
             signIn();
+            item.setEnabled(false);
+            item.setVisible(false);
             return true;
         }
         return super.onOptionsItemSelected(item);
     }
-
-    @SuppressWarnings("StatementWithEmptyBody")
+    
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
@@ -267,10 +274,17 @@ public class MainActivity extends AppCompatActivity
                 currentShelf=Constants.FAVOURITE;
                 break;
         }
-        new UserUtilsAsyncTask(adapter, booksListView,
+        if (currentShelf != Constants.NO_SHELF)
+            new UserUtilsAsyncTask(adapter, booksListView,
                 MainActivity.this,
                 "ShowVolumesInBookshelf",currentShelf).execute(currentShelf);
-
+        else {
+            if(adapter!=null) {
+//                adapter.getVolumes().clear();
+                adapter.clear();
+                adapter.notifyDataSetChanged();
+            }
+        }
         //
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

@@ -3,7 +3,7 @@ package csed.edu.alexu.eg.virtualbookshelf.utility;
 public final class Constants {
     public static final long MAX_RESULTS = 10L;
     // Filter
-    public static String[] search_fields = { "title", "category", "Location"};
+    public static String[] search_fields = { "Title", "Category", "Location"};
 
     public static final String FAVOURITE = "0";
     public static final String WISH_LIST = "3";

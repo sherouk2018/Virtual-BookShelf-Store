@@ -18,7 +18,7 @@
     <string name="read">read books</string>
     <string name="shelf">Shelf</string>
     <string name="image_content_lbl">Book cover is not available</string>
-    <string name="rate_this_book_lbl">Rate this book:</string>
+    <string name="rate_this_book_lbl">Book\'s rating:</string>
     <string name="rate_submit_lbl">Submit</string>
     <string name="add_book">Add</string>
     <string name="cancel_book">Cancel</string>

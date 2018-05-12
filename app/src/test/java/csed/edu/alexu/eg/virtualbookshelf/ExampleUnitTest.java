@@ -24,7 +24,11 @@ import csed.edu.alexu.eg.virtualbookshelf.models.BookFilter.FilterDataByAttribut
 import csed.edu.alexu.eg.virtualbookshelf.models.BookFilter.FilterDataByLocation;
 import csed.edu.alexu.eg.virtualbookshelf.models.BookFilter.FilterDataContext;
 import csed.edu.alexu.eg.virtualbookshelf.models.UserFunctionality.EditShelf;
+import csed.edu.alexu.eg.virtualbookshelf.utility.AddVolumeToShelf;
+import csed.edu.alexu.eg.virtualbookshelf.utility.Constants;
 import csed.edu.alexu.eg.virtualbookshelf.utility.EditFactory;
+import csed.edu.alexu.eg.virtualbookshelf.utility.RemoveVolumeFromShelf;
+import csed.edu.alexu.eg.virtualbookshelf.utility.ShowVolumesInBookshelf;
 
 import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -113,8 +117,114 @@ public class ExampleUnitTest {
     }
 
     @Test(expected = RuntimeException.class)
-    public void testCallingFunctionGetBooksWithoutSettingBooks() {
-        EditFactory.getInstance().getBooks();
+    public void testAddVolumeToBookshelfWithNullParameters() {
+        Books books = Mockito.mock(Books.class, Mockito.RETURNS_DEEP_STUBS);
+        AddVolumeToShelf volumeToShelf = new AddVolumeToShelf(books);
+        volumeToShelf.doFunctionality(null, null);
     }
 
+    @Test(expected = RuntimeException.class)
+    public void testAddVolumeToBookshelfWithExtraParameters() {
+        Books books = Mockito.mock(Books.class, Mockito.RETURNS_DEEP_STUBS);
+        AddVolumeToShelf volumeToShelf = new AddVolumeToShelf(books);
+        volumeToShelf.doFunctionality("0", "1", "2");
+    }
+
+    @Test
+    public void testAddVolumeToBookshelf() {
+        Books books = Mockito.mock(Books.class, Mockito.RETURNS_DEEP_STUBS);
+        AddVolumeToShelf volumeToShelf = new AddVolumeToShelf(books);
+        assertNull(volumeToShelf.doFunctionality("Favorites", "1"));
+    }
+
+    @Test
+    public void testAddVolumeToBookshelfDeepCall() {
+        Books books = Mockito.mock(Books.class, Mockito.RETURNS_DEEP_STUBS);
+        EditShelf volumeToShelf = new EditShelf();
+        volumeToShelf.AddVolumeToShelf("Favorites", "1", books);
+    }
+
+    @Test(expected = RuntimeException.class)
+    public void testAddVolumeToBookshelfWithInvalidShelfName() {
+        Books books = Mockito.mock(Books.class, Mockito.RETURNS_DEEP_STUBS);
+        AddVolumeToShelf volumeToShelf = new AddVolumeToShelf(books);
+        assertNull(volumeToShelf.doFunctionality("Soso", "1"));
+    }
+
+
+
+    ///////////////////////////////////////////////////////////////////////
+    @Test(expected = RuntimeException.class)
+    public void testShowVolumesInBookshelfWithNullParameters() {
+        Books books = Mockito.mock(Books.class, Mockito.RETURNS_DEEP_STUBS);
+        AddVolumeToShelf volumeToShelf = new AddVolumeToShelf(books);
+        volumeToShelf.doFunctionality(null);
+    }
+
+    @Test(expected = RuntimeException.class)
+    public void testShowVolumesInBookshelfWithExtraParameters() {
+        Books books = Mockito.mock(Books.class, Mockito.RETURNS_DEEP_STUBS);
+        AddVolumeToShelf volumeToShelf = new AddVolumeToShelf(books);
+        volumeToShelf.doFunctionality("0", "1");
+    }
+
+    @Test(expected = RuntimeException.class)
+    public void testShowVolumesInBookshelf1() {
+        ShowVolumesInBookshelf volumeToShelf = new ShowVolumesInBookshelf(EditFactory.getInstance().getBooks());
+        assertNotNull(volumeToShelf.doFunctionality(Constants.FAVOURITE));
+    }
+
+    @Test(expected = RuntimeException.class)
+    public void testShowVolumesInBookshelf2() {
+        ShowVolumesInBookshelf volumeToShelf = new ShowVolumesInBookshelf(EditFactory.getInstance().getBooks());
+        assertTrue(volumeToShelf.doFunctionality(Constants.READ).getTotalItems() > 0);
+    }
+
+    @Test(expected = RuntimeException.class)
+    public void testShowVolumesInBookshelf3() {
+        ShowVolumesInBookshelf volumeToShelf = new ShowVolumesInBookshelf(EditFactory.getInstance().getBooks());
+        assertTrue(volumeToShelf.doFunctionality(Constants.WISH_LIST).getTotalItems() > 0);
+    }
+
+    @Test(expected = RuntimeException.class)
+    public void testShowVolumesInBookshelfWithInvalidShelfId() {
+        ShowVolumesInBookshelf volumeToShelf = new ShowVolumesInBookshelf(EditFactory.getInstance().getBooks());
+        assertTrue(volumeToShelf.doFunctionality("toto:soso").getTotalItems() == 0);
+    }
+
+    @Test(expected = RuntimeException.class)
+    public void testRemoveVolumeFromShelfWithExtraParameters() {
+        RemoveVolumeFromShelf volumeToShelf = new RemoveVolumeFromShelf(EditFactory.getInstance().getBooks());
+        assertTrue(volumeToShelf.doFunctionality("0", "1234", "12").getTotalItems() == 0);
+    }
+
+    @Test(expected = RuntimeException.class)
+    public void testRemoveVolumeFromShelfWithNullParameters() {
+        RemoveVolumeFromShelf volumeToShelf = new RemoveVolumeFromShelf(EditFactory.getInstance().getBooks());
+        assertTrue(volumeToShelf.doFunctionality(null, "1234").getTotalItems() == 0);
+    }
+
+    @Test(expected = RuntimeException.class)
+    public void testClearVolumeFromShelfWithExtraParameters() {
+        RemoveVolumeFromShelf volumeToShelf = new RemoveVolumeFromShelf(EditFactory.getInstance().getBooks());
+        assertTrue(volumeToShelf.doFunctionality("0", "1234", "12").getTotalItems() == 0);
+    }
+
+    @Test(expected = RuntimeException.class)
+    public void testClearVolumeFromShelfWithNullParameters() {
+        RemoveVolumeFromShelf volumeToShelf = new RemoveVolumeFromShelf(EditFactory.getInstance().getBooks());
+        assertTrue(volumeToShelf.doFunctionality(null).getTotalItems() == 0);
+    }
+
+    @Test(expected = RuntimeException.class)
+    public void testClearVolumeFromShelf() {
+        RemoveVolumeFromShelf volumeToShelf = new RemoveVolumeFromShelf(EditFactory.getInstance().getBooks());
+        assertTrue(volumeToShelf.doFunctionality("0").getTotalItems() == 0);
+    }
+
+    @Test(expected = RuntimeException.class)
+    public void testRemoveVolumeFromShelf() {
+        RemoveVolumeFromShelf volumeToShelf = new RemoveVolumeFromShelf(EditFactory.getInstance().getBooks());
+        assertTrue(volumeToShelf.doFunctionality("0", "1").getTotalItems() == 0);
+    }
 }

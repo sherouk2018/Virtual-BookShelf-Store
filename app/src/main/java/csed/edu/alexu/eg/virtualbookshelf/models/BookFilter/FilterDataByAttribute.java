@@ -24,7 +24,6 @@ public class FilterDataByAttribute implements FilterDataContext {
         try {
 
             Books.Volumes.List listBooksInst = books.volumes().list(query);
-            listBooksInst.setMaxResults(Constants.MAX_RESULTS);
             volumes = listBooksInst.execute();
         } catch (IOException e) {
             e.printStackTrace();

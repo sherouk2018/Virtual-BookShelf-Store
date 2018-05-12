@@ -56,19 +56,23 @@ public class UserUtilsAsyncTask extends AsyncTask<String , Void, Volumes>  {
     @Override
     protected void onPostExecute(Volumes volumes) {
         super.onPostExecute(volumes);
-        if(adapter!=null) {
-            adapter.getVolumes().clear();
+        if(adapter != null) {
+//            if (adapter.getVolumes() != null) adapter.getVolumes().clear();
             adapter.clear();
             adapter.notifyDataSetChanged();
         }
 
-        if (volumes == null || volumes.isEmpty()||volumes.getItems()==null) {
-            //TODO : if it was empty :/
-            //Toast.makeText(mainActivity, "List is Empty", Toast.LENGTH_LONG).show();
+        if (volumes == null || volumes.isEmpty()|| volumes.getItems()==null) {
+            //TODO : if it was empty :
+            // Toast.makeText(mainActivity, "List is Empty", Toast.LENGTH_LONG).show();
             return;
         }
+
         Log.d("UserUtils-AsyncTask", volumes.size()+"  "+ shelfId );
-        adapter = new BookListAdapter(mainActivity, R.layout.books_list_item, volumes, shelfId);
+//        adapter.setBooksListView(booksListView);
+//        adapter.setVolumes(volumes);
+//        adapter.setShelfId(shelfId);
+        adapter = new BookListAdapter(mainActivity, R.layout.books_list_item, volumes, shelfId, booksListView);
         adapter.setNotifyOnChange(true);
         booksListView.setAdapter(adapter);
         ((MainActivity)mainActivity).setAdapter(adapter);

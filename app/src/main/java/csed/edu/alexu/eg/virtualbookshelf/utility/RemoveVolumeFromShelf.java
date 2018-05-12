@@ -15,6 +15,7 @@ public class RemoveVolumeFromShelf extends UserUtils {
 
     @Override
     public Volumes doFunctionality(String... params) {
+        if ((params.length < 1 || params.length >= 3)) throw new RuntimeException("Invalid parameters");
         Log.d(TAG, "Begin removing volume from shelf with shelf id: " + params[0] );
         //params[0]: ShelfID, params[1]: volumeID
         EditShelf shelf = new EditShelf();

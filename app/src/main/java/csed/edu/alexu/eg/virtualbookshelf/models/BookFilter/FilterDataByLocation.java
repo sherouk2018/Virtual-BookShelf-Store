@@ -18,7 +18,7 @@ public class FilterDataByLocation implements FilterDataContext {
             throw new RuntimeException("Invalid arguments");
         Volumes volumes = null;
         try {
-            String userId = LocationToUserId.getUserId(location);
+            String userId = LocationToUserId.getUserId(location.toLowerCase());
             if (userId == null)
                 throw new RuntimeException("Location not found");
             Books.Bookshelves.Volumes.List listBooksInst = books.bookshelves().volumes().list(userId, "0");

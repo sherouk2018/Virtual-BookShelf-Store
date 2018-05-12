@@ -34,6 +34,7 @@ public class AddVolumeToShelf extends UserUtils {
     // params[0]: ShelfID
     // params[1]: volumeID
     public Volumes doFunctionality(String... params) {
+        if (params[0] == null || params[1] == null || params.length != 2) throw new RuntimeException("Invalid parameters");
         Log.d(TAG, "Begin AddVolume async task");
         EditShelf shelf = new EditShelf();
         shelf.AddVolumeToShelf(shelfID.get(params[0]), params[1], books);

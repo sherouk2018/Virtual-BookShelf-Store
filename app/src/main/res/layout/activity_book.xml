@@ -70,12 +70,6 @@
             android:numStars="5"
             android:stepSize="1.0" />
 
-        <Button
-            android:id="@+id/submit_rate_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/rate_submit_lbl" />
-
         <LinearLayout
             android:id="@+id/user_add_to_lists_options"
             android:layout_width="match_parent"

@@ -64,10 +64,8 @@ public class BookActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(final Volume volume) {
-            Button submitRateBtn = findViewById(R.id.submit_rate_btn);
-
-
             super.onPostExecute(volume);
+
             if (volume != null) {
                 // ui items
                 ImageView bookImage = findViewById(R.id.ind_book_image);
@@ -75,7 +73,7 @@ public class BookActivity extends AppCompatActivity {
                 TextView authorsTxt = findViewById(R.id.ind_book_authors);
                 TextView pageCountTxt = findViewById(R.id.ind_book_page_count);
                 TextView descriptionTxt = findViewById(R.id.ind_book_description);
-
+                final RatingBar ratingBar = findViewById(R.id.rating_bar);
                 // image
                 Volume.VolumeInfo.ImageLinks imageLinks = volume.getVolumeInfo().getImageLinks();
                 if (imageLinks != null) {
@@ -110,21 +108,9 @@ public class BookActivity extends AppCompatActivity {
                 pageCountStr.append(" pages");
                 pageCountTxt.setText(pageCountStr);
                 descriptionTxt.setText(volume.getVolumeInfo().getDescription());
-
-                submitRateBtn.setOnClickListener(new View.OnClickListener() {
-
-                    @Override
-                    public void onClick(View v) {
-
-                        RatingBar ratingBar = findViewById(R.id.rating_bar);
-                        Toast.makeText(getApplicationContext(),
-                                String.valueOf(ratingBar.getRating()),
-                                Toast.LENGTH_SHORT).show();
-
-                    }
-
-                });
-
+                double rate = volume.getVolumeInfo().getAverageRating() == null ? 0 : volume.getVolumeInfo().getAverageRating();
+                ratingBar.setRating((float)rate);
+                ratingBar.setIsIndicator(true);
                 boolean isSignedInUser = MainActivity.getMainActivity().isSignedInUser();
                 int visibility = isSignedInUser?View.VISIBLE : View.INVISIBLE;
                 LinearLayout add_to_list_options=(LinearLayout)findViewById(R.id.user_add_to_lists_options);

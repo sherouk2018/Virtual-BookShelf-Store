@@ -65,8 +65,23 @@ public class EditFactory {
             UserUtils obj = (UserUtils) c.newInstance(getBooks());
             Log.d(TAG, "Finish creating object: " + obj.getClass().getSimpleName());
             return obj;
-        } catch (ClassNotFoundException | NoSuchMethodException
-                | InstantiationException | IllegalAccessException | InvocationTargetException e) {
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+            Log.e(TAG, "Fail to create object in EditFactory");
+            throw new RuntimeException("Invalid UserUtils Class");
+        }  catch (NoSuchMethodException e) {
+            e.printStackTrace();
+            Log.e(TAG, "Fail to create object in EditFactory");
+            throw new RuntimeException("Invalid UserUtils Class");
+        }  catch (InstantiationException e) {
+            e.printStackTrace();
+            Log.e(TAG, "Fail to create object in EditFactory");
+            throw new RuntimeException("Invalid UserUtils Class");
+        }  catch (IllegalAccessException e) {
+            e.printStackTrace();
+            Log.e(TAG, "Fail to create object in EditFactory");
+            throw new RuntimeException("Invalid UserUtils Class");
+        }  catch (InvocationTargetException e) {
             e.printStackTrace();
             Log.e(TAG, "Fail to create object in EditFactory");
             throw new RuntimeException("Invalid UserUtils Class");
@@ -80,7 +95,7 @@ public class EditFactory {
                     .setApplicationName("VirtualBookShelf")
                     .setGoogleClientRequestInitializer(new BooksRequestInitializer(Constants.KEYAPI))
                     .build();
-//throw new RuntimeException("Books is not set yet");
+        //throw new RuntimeException("Books is not set yet");
         }
         return books;
     }

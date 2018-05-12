@@ -8,8 +8,8 @@ public class LocationToUserId {
 
     // Todo update the user id to a real one
     static {
-        locationToUserId.put("ALF", "1");
-        locationToUserId.put("BIBALEX", "2");
+        locationToUserId.put("alf", "115795862021150203743");
+        locationToUserId.put("bibalex", "116150945014472813554");
     }
 
     private LocationToUserId() {}

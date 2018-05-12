@@ -21,10 +21,19 @@ public class FilterData extends UserUtils{
             FilterDataContext filter = (FilterDataContext) Class.forName(path + params[0]).newInstance();
             Log.d(TAG, "Returning object from type " + filter.getClass().getSimpleName());
             return filter.filterData(params[1], EditFactory.getInstance().getBooks());
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+            Log.e(TAG, "Failed to create object");
+            throw new RuntimeException("Invalid parameters for filter");
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+            Log.e(TAG, "Failed to create object");
+            throw new RuntimeException("Invalid parameters for filter");
+        } catch (InstantiationException e) {
             e.printStackTrace();
             Log.e(TAG, "Failed to create object");
             throw new RuntimeException("Invalid parameters for filter");
         }
+
     }
 }
